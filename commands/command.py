@@ -19,4 +19,5 @@ async def delete_keyword_messages(message: Message):
             try:
                 await message.delete()
                 logging.info(f"Deleted message: {message.text}")
-            
+            except Exception as e:
+                logging.error(f"Failed to delete message: {e}")
