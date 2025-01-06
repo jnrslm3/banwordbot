@@ -14,7 +14,8 @@ KEYWORDS = keywords("list_of_badwords.txt")
 
 @command_router.message(Command("start"))
 async def start_handler(message: Message):
-    await message.answer("You started the bot!", reply_markup = kb)
+    await message.answer("""Вы активировали бота. Этот бот удаляет все матершинные слова в чате группы или канала. \n 
+    Если хотите добавить бота к себе в группу следуйте по инструкции""" , reply_markup = await inline_buttons())
 
 
 @command_router.message(F.text)
