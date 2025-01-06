@@ -2,6 +2,7 @@ from aiogram import Router, F
 from aiogram.filters import Command
 from aiogram.types import Message
 import logging
+from commands.keyboards import *
 
 command_router = Router()
 
@@ -13,7 +14,7 @@ KEYWORDS = keywords("list_of_badwords.txt")
 
 @command_router.message(Command("start"))
 async def start_handler(message: Message):
-    await message.answer("You started the bot!")
+    await message.answer("You started the bot!", reply_markup = kb)
 
 
 @command_router.message(F.text)
