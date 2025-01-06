@@ -1,6 +1,6 @@
 from aiogram import Router, F
 from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, FSInputFile
 import logging
 from commands.keyboards import *
 
@@ -27,3 +27,21 @@ async def delete_keyword_messages(message: Message):
 @command_router.callback_query(F.data.startswith('help'))
 async def help_handler(callback: CallbackQuery):
     await callback.message.answer("Для дополнительной помощи обращайтесь сюда @jnrslm3 ")
+
+from aiogram.types import InputFile
+
+@command_router.callback_query(F.data.startswith('guide'))
+async def guide_handler(callback: CallbackQuery):
+    guide_steps = [
+        ("Откройте чат вашей группы в Telegram.", 'images/photo_2025-01-06 17.22.12.jpeg'),
+        ("Нажмите на название группы в верхней части экрана, чтобы открыть настройки группы.", 'images/photo_2025-01-06 17.22.10.jpeg'),
+        ("Прокрутите вниз и нажмите 'Добавить участника'.", 'images/photo_2025-01-06 17.22.06.jpeg'),
+        ("Найдите бота, используя его имя пользователя (например, @your_bot_username).", 'images/photo_2025-01-06 17.22.14.jpeg'),
+        ("После добавления бота вы должны повысить бота до администратора, затем надо настроить его права и параметры.", 'images/photo_2025-01-06 17.22.18.jpeg'),
+        ("Это изображение показывает конечный результат после добавления бота.", 'images/photo_2025-01-06 17.22.21.jpeg'),
+    ]
+    
+    for step_text, image_path in guide_steps:
+        await callback.message.answer(step_text)
+        image = FSInputFile(image_path)
+        await callback.message.answer_photo(photo=image)

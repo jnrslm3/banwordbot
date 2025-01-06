@@ -5,5 +5,5 @@ async def inline_buttons():
     kb = InlineKeyboardBuilder()
     kb.add(InlineKeyboardButton(text="Инструкция", callback_data="guide"))
     kb.add(InlineKeyboardButton(text="Дополненная помощь", callback_data="help"))
-    return kb.as_markup()
+    return kb.adjust(1).as_markup()
     
