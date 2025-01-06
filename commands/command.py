@@ -5,10 +5,7 @@ import logging
 from commands.keyboards import *
 from databases.querysets import *
 
-
-
 command_router = Router()
-
 
 @command_router.message(Command("start"))
 async def start_handler(message: Message):
@@ -18,8 +15,12 @@ async def start_handler(message: Message):
 
 @command_router.message(F.text)
 async def delete_keyword_messages(message: Message):
-    
-        
+    text = message.text.lower() 
+    if text:
+        swear_words = await get_word_by_partial(text) 
+        if swear_words:
+            await message.delete()
+
 
 @command_router.callback_query(F.data.startswith('help'))
 async def help_handler(callback: CallbackQuery):

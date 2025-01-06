@@ -7,12 +7,12 @@ from databases.models import *
 from databases.querysets import *
 
 async def main():
-    # bot = Bot(token=TOKEN)
-    # dp = Dispatcher()
-    # dp.include_router(command_router)
-    # await dp.start_polling(bot)
+    bot = Bot(token=TOKEN)
+    dp = Dispatcher()
+    dp.include_router(command_router)
+    await dp.start_polling(bot)
     # await create_tables()
-    await add_word()
+    # await add_word()
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
