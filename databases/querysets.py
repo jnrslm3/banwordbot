@@ -14,3 +14,10 @@ async def all_word():
     async with async_session() as session:
         result = await session.scalars(select(SwearWords))
         return result.all() 
+
+
+async def get_word_by_partial(word_part):
+    async with async_session() as session:
+        result = await session.scalars(select(SwearWords).where(
+            SwearWords.word.ilike(f"%{word_part}%")))  
+        return result.all() 
