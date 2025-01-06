@@ -3,7 +3,7 @@ from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery, FSInputFile
 import logging
 from commands.keyboards import *
-from databases.querysets import *
+from abusive_words import abusive_language
 
 command_router = Router()
 
@@ -15,10 +15,8 @@ async def start_handler(message: Message):
 
 @command_router.message(F.text)
 async def delete_keyword_messages(message: Message):
-    text = message.text.lower() 
-    if text:
-        swear_words = await get_word_by_partial(text) 
-        if swear_words:
+    for word in abusive_language:
+        if word in message.text.lower():
             await message.delete()
 
 
