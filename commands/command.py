@@ -2,10 +2,14 @@ from aiogram import Router, F
 from aiogram.filters import Command
 from aiogram.types import Message
 import logging
-from databases.querysets import KEYWORDS
 
 command_router = Router()
 
+def keywords(file_path: "/Users/nurislam/Desktop/projects/telegram_bots/ban_word_bot/list_of_badwords.txt"):
+    with open(file_path, 'r') as file:
+        return [line.strip().lower() for line in file]
+
+KEYWORDS = keywords("list_of_badwords.txt")
 
 @command_router.message(Command("start"))
 async def start_handler(message: Message):
@@ -16,8 +20,4 @@ async def start_handler(message: Message):
 async def delete_keyword_messages(message: Message):
     for keyword in KEYWORDS:
         if keyword in message.text.lower():
-            try:
-                await message.delete()
-                logging.info(f"Deleted message: {message.text}")
-            except Exception as e:
-                logging.error(f"Failed to delete message: {e}")
+            await message.delete()
