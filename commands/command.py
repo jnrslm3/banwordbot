@@ -1,6 +1,6 @@
 from aiogram import Router, F
 from aiogram.filters import Command
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
 import logging
 from commands.keyboards import *
 
@@ -23,3 +23,7 @@ async def delete_keyword_messages(message: Message):
     for keyword in KEYWORDS:
         if keyword in message.text.lower():
             await message.delete()
+
+@command_router.callback_query(F.data.startswith('help'))
+async def help_handler(callback: CallbackQuery):
+    await callback.message.answer("Для дополнительной помощи обращайтесь сюда @jnrslm3 ")
